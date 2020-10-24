@@ -7,6 +7,7 @@ import re
 from datetime import datetime
 import copy
 
+
 def gen_ann_module(name, ns, prefix):
     revdate = datetime.today().strftime('%Y-%m-%d')
     str = """<?xml version="1.0" encoding="utf-8"?>
@@ -35,6 +36,7 @@ def add_stmt(node, ann_node, ann_soup):
         parent_ann_node = ann_soup.new_tag("tailf:annotate-statement", statement_path="{}[name=\'{}\']".format(node.parent.name, node.parent['yname']))
     parent_ann_node.append(ann_node)
     return add_stmt(node.parent, parent_ann_node, ann_soup)
+
 
 def tailf_ann_stmt(yang_file):
     confd_dir = os.environ['CONFD_DIR']
@@ -115,6 +117,7 @@ def tailf_ann_stmt(yang_file):
         with open("yang/{}".format(ann_filename), "w") as fp:
             fp.write(str(ann_content))
             fp.close()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
